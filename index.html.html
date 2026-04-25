@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenBox Portugal — Vive de forma mais sustentável</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep:   #0F2D1A;
+    --green-forest: #1B5E20;
+    --green-mid:    #2E7D32;
+    --green-sage:   #4CAF50;
+    --green-mist:   #C8E6C9;
+    --gold:         #C9943A;
+    --gold-light:   #E8C068;
+    --cream:        #F7F3EC;
+    --linen:        #EDE8DF;
+    --bark:         #7B6B52;
+    --white:        #FDFCF9;
+    --text-dark:    #1A1A1A;
+    --text-mid:     #3D3D3D;
+    --text-soft:    #6B6B6B;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(15,45,26,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600;
+    color: var(--white); letter-spacing: 0.04em;
+  }
+  .nav-logo span { color: var(--gold-light); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-weight: 500; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-cta {
+    background: var(--gold); color: var(--green-deep);
+    border: none; padding: 0.65rem 1.6rem;
+    font-family: 'Jost', sans-serif; font-size: 0.82rem;
+    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s;
+  }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  /* ─── HERO ────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(to bottom, rgba(10,28,16,0.72) 0%, rgba(15,45,26,0.55) 60%, rgba(15,45,26,0.82) 100%),
+      url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1800&q=80') center/cover no-repeat;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 8rem 2rem 6rem;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 80%, rgba(27,94,32,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(201,148,58,0.18); border: 1px solid rgba(201,148,58,0.45);
+    color: var(--gold-light); padding: 0.45rem 1.2rem;
+    font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+    margin-bottom: 2rem;
+    animation: fadeDown 0.8s ease both;
+  }
+  .hero-badge::before { content: '🌿'; font-size: 0.9rem; }
+
+  #hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 300; line-height: 1.1;
+    color: var(--white); max-width: 900px;
+    animation: fadeDown 0.9s 0.1s ease both;
+  }
+  #hero h1 em { font-style: italic; color: var(--gold-light); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(255,255,255,0.75); max-width: 560px;
+    margin: 1.8rem auto 0; line-height: 1.7; font-weight: 300;
+    animation: fadeDown 1s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeDown 1.1s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--green-deep);
+    border: none; padding: 1rem 2.5rem;
+    font-family: 'Jost', sans-serif; font-size: 0.9rem;
+    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,148,58,0.4); }
+  .btn-outline {
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.5); padding: 1rem 2.5rem;
+    font-family: 'Jost', sans-serif; font-size: 0.9rem;
+    font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+  .trust-bar {
+    display: flex; gap: 2.5rem; margin-top: 4rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeDown 1.2s 0.4s ease both;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: rgba(255,255,255,0.65); font-size: 0.82rem; letter-spacing: 0.06em;
+  }
+  .trust-item::before { font-size: 1rem; }
+  .trust-item:nth-child(1)::before { content: '✦'; color: var(--gold-light); }
+  .trust-item:nth-child(2)::before { content: '✦'; color: var(--gold-light); }
+  .trust-item:nth-child(3)::before { content: '✦'; color: var(--gold-light); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(255,255,255,0.4); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint::after {
+    content: ''; width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  }
+
+  /* ─── MANIFESTO STRIP ─────────────────────── */
+  .manifesto-strip {
+    background: var(--green-forest);
+    padding: 1.4rem 4rem;
+    display: flex; align-items: center; justify-content: center; gap: 3rem;
+    overflow: hidden;
+  }
+  .manifesto-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    color: rgba(255,255,255,0.9); font-size: 0.82rem;
+    letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    white-space: nowrap;
+  }
+  .manifesto-item span { color: var(--gold-light); font-size: 1.1rem; }
+
+  /* ─── STORY SECTION ───────────────────────── */
+  #story {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 600px;
+  }
+  .story-visual {
+    background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=900&q=80') center/cover;
+    position: relative; min-height: 500px;
+  }
+  .story-visual::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(27,94,32,0.3), transparent);
+  }
+  .story-content {
+    background: var(--cream);
+    padding: 6rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600; margin-bottom: 1.2rem;
+  }
+  .story-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; line-height: 1.25;
+    color: var(--green-deep); margin-bottom: 1.5rem;
+  }
+  .story-content h2 em { font-style: italic; color: var(--green-forest); }
+  .story-content p {
+    color: var(--text-mid); line-height: 1.85; font-size: 1rem; font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .story-link {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    color: var(--green-forest); font-weight: 500; font-size: 0.9rem;
+    text-decoration: none; margin-top: 1rem; letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--green-sage); padding-bottom: 0.2rem;
+    transition: gap 0.2s, color 0.2s;
+  }
+  .story-link:hover { gap: 1rem; color: var(--gold); }
+
+  /* ─── STATS ───────────────────────────────── */
+  #stats {
+    background: var(--green-deep);
+    padding: 4rem;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  }
+  .stat-item {
+    padding: 2rem; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300; color: var(--gold-light); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); margin-top: 0.6rem; font-weight: 400;
+  }
+
+  /* ─── HOW IT WORKS ────────────────────────── */
+  #how {
+    background: var(--linen);
+    padding: 8rem 4rem;
+    text-align: center;
+  }
+  #how .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400;
+    color: var(--green-deep); margin-bottom: 1rem;
+  }
+  #how .section-sub {
+    color: var(--text-soft); font-size: 1rem; font-weight: 300;
+    max-width: 480px; margin: 0 auto 5rem; line-height: 1.7;
+  }
+  .steps {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 3rem; max-width: 1000px; margin: 0 auto; position: relative;
+  }
+  .steps::before {
+    content: '';
+    position: absolute; top: 2.8rem; left: 16%; right: 16%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--green-mist), transparent);
+  }
+  .step {
+    display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+  }
+  .step-num {
+    width: 5rem; height: 5rem;
+    background: var(--green-forest); color: var(--white);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; position: relative;
+  }
+  .step-num::after {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 50%; border: 1px solid var(--green-mist);
+  }
+  .step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; color: var(--green-deep); font-weight: 400;
+  }
+  .step p { color: var(--text-soft); font-size: 0.92rem; line-height: 1.7; font-weight: 300; }
+
+  /* ─── UNBOXING ────────────────────────────── */
+  #unboxing {
+    display: grid; grid-template-columns: 1fr 1fr;
+  }
+  .unboxing-content {
+    background: var(--green-deep);
+    padding: 7rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .unboxing-content .section-label { color: var(--gold-light); }
+  .unboxing-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300;
+    color: var(--white); line-height: 1.25; margin-bottom: 1.5rem;
+  }
+  .unboxing-content h2 em { font-style: italic; color: var(--gold-light); }
+  .unboxing-content p { color: rgba(255,255,255,0.65); line-height: 1.85; font-weight: 300; margin-bottom: 2rem; }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.5;
+  }
+  .feature-list li::before {
+    content: '—'; color: var(--gold); flex-shrink: 0; margin-top: 0.1rem; font-weight: 300;
+  }
+  .unboxing-mosaic {
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+    min-height: 500px;
+  }
+  .mosaic-cell { overflow: hidden; }
+  .mosaic-cell img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .mosaic-cell:hover img { transform: scale(1.05); }
+
+  /* ─── PRICING ─────────────────────────────── */
+  #pricing {
+    background: var(--white);
+    padding: 8rem 4rem;
+    text-align: center;
+  }
+  #pricing .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400;
+    color: var(--green-deep); margin-bottom: 0.8rem;
+  }
+  #pricing .section-sub {
+    color: var(--text-soft); font-weight: 300; margin-bottom: 4rem;
+    font-size: 1rem; line-height: 1.6;
+  }
+  .plans {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; max-width: 1000px; margin: 0 auto;
+    align-items: start;
+  }
+  .plan {
+    border: 1px solid var(--linen);
+    padding: 3rem 2.5rem;
+    text-align: left; position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: var(--white);
+  }
+  .plan:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
+  .plan.featured {
+    background: var(--green-deep); border-color: var(--green-deep);
+    transform: translateY(-12px);
+    box-shadow: 0 40px 80px rgba(15,45,26,0.25);
+  }
+  .plan.featured:hover { transform: translateY(-18px); }
+  .plan-badge {
+    position: absolute; top: -0.75rem; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--green-deep);
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    font-weight: 700; padding: 0.3rem 1.2rem; white-space: nowrap;
+  }
+  .plan-name {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--bark); font-weight: 500; margin-bottom: 1.2rem;
+  }
+  .plan.featured .plan-name { color: var(--green-mist); }
+  .plan-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 300; color: var(--green-deep); line-height: 1;
+  }
+  .plan.featured .plan-price { color: var(--white); }
+  .plan-price sup { font-size: 1.5rem; vertical-align: super; font-weight: 400; }
+  .plan-price sub { font-size: 1rem; font-weight: 300; color: var(--text-soft); font-family: 'Jost', sans-serif; }
+  .plan.featured .plan-price sub { color: rgba(255,255,255,0.5); }
+  .plan-desc {
+    font-size: 0.88rem; color: var(--text-soft); margin: 1.2rem 0 2rem;
+    line-height: 1.6; font-weight: 300;
+  }
+  .plan.featured .plan-desc { color: rgba(255,255,255,0.6); }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    font-size: 0.88rem; color: var(--text-mid); line-height: 1.4;
+  }
+  .plan.featured .plan-features li { color: rgba(255,255,255,0.8); }
+  .plan-features li::before { content: '✓'; color: var(--green-sage); font-weight: 700; flex-shrink: 0; }
+  .plan.featured .plan-features li::before { color: var(--gold-light); }
+  .plan-btn {
+    width: 100%; padding: 1rem;
+    background: transparent; border: 1px solid var(--green-forest);
+    color: var(--green-forest);
+    font-family: 'Jost', sans-serif; font-size: 0.82rem;
+    letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
+    cursor: pointer; transition: all 0.25s;
+  }
+  .plan-btn:hover { background: var(--green-forest); color: var(--white); }
+  .plan.featured .plan-btn {
+    background: var(--gold); border-color: var(--gold); color: var(--green-deep);
+  }
+  .plan.featured .plan-btn:hover { background: var(--gold-light); }
+  .plan-guarantee {
+    text-align: center; margin-top: 3rem;
+    color: var(--text-soft); font-size: 0.82rem; font-weight: 300; line-height: 1.6;
+  }
+  .plan-guarantee strong { color: var(--green-forest); }
+
+  /* ─── TESTIMONIALS ────────────────────────── */
+  #testimonials {
+    background: var(--cream);
+    padding: 8rem 4rem;
+  }
+  #testimonials .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 400;
+    color: var(--green-deep); text-align: center; margin-bottom: 4rem;
+  }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; max-width: 1100px; margin: 0 auto;
+  }
+  .testimonial {
+    background: var(--white); padding: 2.5rem;
+    border-left: 3px solid var(--green-forest);
+    position: relative;
+  }
+  .testimonial::before {
+    content: '\201C';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem; color: var(--green-mist);
+    position: absolute; top: -0.5rem; left: 1.5rem;
+    line-height: 1; pointer-events: none;
+  }
+  .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1.2rem; letter-spacing: 0.1em; }
+  .testimonial p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-style: italic; color: var(--text-mid);
+    line-height: 1.7; margin-bottom: 1.5rem; font-weight: 400;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--green-mist); overflow: hidden; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--green-forest);
+  }
+  .author-info strong {
+    display: block; font-size: 0.9rem; color: var(--green-deep); font-weight: 600;
+  }
+  .author-info span { font-size: 0.78rem; color: var(--text-soft); }
+
+  /* ─── BRANDS ──────────────────────────────── */
+  #brands {
+    background: var(--green-forest);
+    padding: 3rem 4rem;
+    text-align: center;
+  }
+  #brands p {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); margin-bottom: 2rem; font-weight: 500;
+  }
+  .brands-row {
+    display: flex; gap: 3rem; justify-content: center; align-items: center; flex-wrap: wrap;
+  }
+  .brand-pill {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7); padding: 0.5rem 1.4rem;
+    font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500;
+  }
+
+  /* ─── CTA FINAL ───────────────────────────── */
+  #cta-final {
+    min-height: 90vh;
+    background:
+      linear-gradient(to bottom, rgba(10,28,16,0.75), rgba(10,28,16,0.88)),
+      url('https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1800&q=80') center/cover fixed;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 8rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  #cta-final::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(27,94,32,0.35) 0%, transparent 65%);
+  }
+  #cta-final .section-label { color: var(--gold-light); margin-bottom: 1.5rem; position: relative; z-index: 1; }
+  #cta-final h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300;
+    color: var(--white); max-width: 780px; line-height: 1.15;
+    margin-bottom: 1.5rem; position: relative; z-index: 1;
+  }
+  #cta-final h2 em { font-style: italic; color: var(--gold-light); }
+  #cta-final p {
+    color: rgba(255,255,255,0.65); font-size: 1.05rem; font-weight: 300;
+    max-width: 480px; line-height: 1.7; margin-bottom: 3rem; position: relative; z-index: 1;
+  }
+  .cta-form {
+    display: flex; gap: 0; max-width: 480px; width: 100%;
+    position: relative; z-index: 1;
+  }
+  .cta-form input {
+    flex: 1; padding: 1.1rem 1.5rem;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25);
+    color: var(--white); font-family: 'Jost', sans-serif; font-size: 0.95rem;
+    outline: none; transition: border-color 0.2s;
+  }
+  .cta-form input::placeholder { color: rgba(255,255,255,0.45); }
+  .cta-form input:focus { border-color: var(--gold-light); }
+  .cta-form button {
+    background: var(--gold); color: var(--green-deep);
+    border: none; padding: 1.1rem 2rem;
+    font-family: 'Jost', sans-serif; font-size: 0.82rem;
+    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.25s; white-space: nowrap;
+  }
+  .cta-form button:hover { background: var(--gold-light); }
+  .cta-guarantees {
+    display: flex; gap: 2rem; margin-top: 1.8rem; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .cta-guarantees span {
+    color: rgba(255,255,255,0.5); font-size: 0.78rem; letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .cta-guarantees span::before { content: '·'; color: var(--gold); font-size: 1.2rem; }
+
+  /* ─── FOOTER ──────────────────────────────── */
+  footer {
+    background: var(--green-deep);
+    padding: 4rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem; border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand .nav-logo { display: block; margin-bottom: 1rem; font-size: 1.4rem; }
+  .footer-brand p {
+    color: rgba(255,255,255,0.45); font-size: 0.85rem; line-height: 1.7;
+    font-weight: 300; max-width: 240px;
+  }
+  .footer-socials { display: flex; gap: 1rem; margin-top: 1.5rem; }
+  .social-link {
+    width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5); font-size: 0.8rem; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .social-link:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-col h4 {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); font-weight: 500; margin-bottom: 1.2rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul a {
+    color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.88rem;
+    font-weight: 300; transition: color 0.2s;
+  }
+  .footer-col ul a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    background: rgba(0,0,0,0.2);
+    padding: 1.2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom p { color: rgba(255,255,255,0.3); font-size: 0.78rem; font-weight: 300; }
+  .eco-badge {
+    display: flex; align-items: center; gap: 0.5rem;
+    color: var(--green-mist); font-size: 0.75rem; letter-spacing: 0.08em;
+  }
+
+  /* ─── ANIMATIONS ──────────────────────────── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ─── RESPONSIVE ──────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    #story, #unboxing { grid-template-columns: 1fr; }
+    .story-visual { min-height: 300px; }
+    .story-content, .unboxing-content { padding: 4rem 2rem; }
+    #stats { grid-template-columns: repeat(2,1fr); }
+    .steps { grid-template-columns: 1fr; }
+    .steps::before { display: none; }
+    .plans { grid-template-columns: 1fr; }
+    .plan.featured { transform: none; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .unboxing-mosaic { grid-template-columns: 1fr; grid-template-rows: repeat(4, 200px); }
+    .manifesto-strip { flex-wrap: wrap; gap: 1rem; padding: 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Green<span>Box</span></div>
+  <ul class="nav-links">
+    <li><a href="#how">Como funciona</a></li>
+    <li><a href="#pricing">Planos</a></li>
+    <li><a href="#testimonials">Testemunhos</a></li>
+    <li><a href="#story">A nossa história</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('cta-final').scrollIntoView({behavior:'smooth'})">Subscrever</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-badge">Produtos ecológicos portugueses</div>
+  <h1>Vive de forma mais<br><em>sustentável.</em><br>Sem complicar.</h1>
+  <p class="hero-sub">Cada mês, uma caixa com os melhores produtos ecológicos selecionados por especialistas, entregue na tua porta. A curadoria é nossa. A escolha já foi feita.</p>
+  <div class="hero-actions">
+    <a href="#pricing" class="btn-primary">Quero a minha GreenBox</a>
+    <a href="#how" class="btn-outline">Ver como funciona</a>
+  </div>
+  <div class="trust-bar">
+    <div class="trust-item">+ de 2.000 subscritores</div>
+    <div class="trust-item">Envio gratuito em Portugal</div>
+    <div class="trust-item">Cancela quando quiseres</div>
+  </div>
+  <div class="scroll-hint">Descobrir</div>
+</section>
+
+<!-- MANIFESTO STRIP -->
+<div class="manifesto-strip">
+  <div class="manifesto-item"><span>🌿</span> Certificado Ecocert</div>
+  <div class="manifesto-item"><span>🇵🇹</span> Marcas Portuguesas</div>
+  <div class="manifesto-item"><span>♻️</span> Embalagem 100% Reciclável</div>
+  <div class="manifesto-item"><span>🌍</span> Carbono Neutro</div>
+  <div class="manifesto-item"><span>✦</span> Sem Compromisso</div>
+</div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="story-visual"></div>
+  <div class="story-content">
+    <div class="section-label">A nossa história</div>
+    <h2>Nascemos da <em>frustração</em> de querer fazer melhor.</h2>
+    <p>Sabemos como é. Queres viver de forma mais consciente, mas o mercado é ruidoso, as marcas são opacas e a pesquisa consome o tempo que não tens. Decidimos resolver isso.</p>
+    <p>A GreenBox nasceu em Lisboa em 2024, da mão de uma equipa apaixonada por sustentabilidade e design de experiências. Cada mês, os nossos especialistas percorrem feiras, ateliers e laboratórios portugueses para encontrar os produtos que merecem entrar na tua casa.</p>
+    <a href="#how" class="story-link">Ver como selecionamos os produtos →</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stat-item reveal">
+    <div class="stat-num">2.4K</div>
+    <div class="stat-label">Subscritores Ativos</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-1">
+    <div class="stat-num">50+</div>
+    <div class="stat-label">Marcas Portuguesas Parceiras</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-2">
+    <div class="stat-num">340g</div>
+    <div class="stat-label">Plástico Evitado por Caixa</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-3">
+    <div class="stat-num">4.9★</div>
+    <div class="stat-label">Avaliação Média</div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label">O processo</div>
+  <h2 class="section-title">Três passos. Uma decisão melhor.</h2>
+  <p class="section-sub">Desenhado para ser simples. Porque a sustentabilidade não deve exigir esforço extra da tua parte.</p>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <h3>Escolhes o teu plano</h3>
+      <p>Básico, Familiar ou Premium. Adapta-se ao teu estilo de vida e ao que precisas no dia a dia.</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">2</div>
+      <h3>Nós curadamos</h3>
+      <p>Os nossos especialistas selecionam os melhores produtos do mês — com certificações reais e histórias por trás.</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">3</div>
+      <h3>Recebes e vives melhor</h3>
+      <p>A caixa chega à tua porta. Abres, descobres, usas. E sabes que cada escolha faz diferença.</p>
+    </div>
+  </div>
+</section>
+
+<!-- UNBOXING -->
+<section id="unboxing">
+  <div class="unboxing-content">
+    <div class="section-label">A experiência</div>
+    <h2>Cada caixa é uma <em>declaração</em> de valores.</h2>
+    <p>Não enviamos apenas produtos. Enviamos a história de cada marca, os ingredientes que escolhemos e os que recusámos, e o impacto concreto da tua escolha naquele mês.</p>
+    <ul class="feature-list">
+      <li>Produtos selecionados com certificação verificada</li>
+      <li>Cartão com história de cada marca incluída</li>
+      <li>Relatório do teu impacto ambiental mensal</li>
+      <li>Embalagem 100% reciclável e reutilizável</li>
+      <li>Acesso à comunidade exclusiva de subscritores</li>
+    </ul>
+  </div>
+  <div class="unboxing-mosaic">
+    <div class="mosaic-cell">
+      <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&q=80" alt="Produtos naturais">
+    </div>
+    <div class="mosaic-cell">
+      <img src="https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=600&q=80" alt="Cosmética natural">
+    </div>
+    <div class="mosaic-cell">
+      <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80" alt="Eco products">
+    </div>
+    <div class="mosaic-cell">
+      <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80" alt="Natural living">
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-label">Planos e preços</div>
+  <h2 class="section-title">Escolhe o teu ritmo sustentável.</h2>
+  <p class="section-sub">Todos os planos incluem envio gratuito, embalagem reciclável e a liberdade de cancelar quando quiseres.</p>
+  <div class="plans">
+
+    <div class="plan reveal">
+      <div class="plan-name">Básico</div>
+      <div class="plan-price"><sup>€</sup>19<span style="font-size:1.8rem">.90</span><sub>/mês</sub></div>
+      <p class="plan-desc">Para quem quer começar a jornada sustentável de forma simples e acessível.</p>
+      <ul class="plan-features">
+        <li>5 a 7 produtos ecológicos</li>
+        <li>Foco em higiene e limpeza natural</li>
+        <li>Ficha de ingredientes incluída</li>
+        <li>Embalagem 100% reciclável</li>
+        <li>Envio gratuito</li>
+      </ul>
+      <button class="plan-btn">Começar agora</button>
+    </div>
+
+    <div class="plan featured reveal reveal-delay-1">
+      <div class="plan-badge">Mais popular</div>
+      <div class="plan-name">Familiar</div>
+      <div class="plan-price"><sup>€</sup>29<span style="font-size:1.8rem">.90</span><sub>/mês</sub></div>
+      <p class="plan-desc">Pensado para casas com mais de uma pessoa. Mais produtos, mais variedade, mais impacto.</p>
+      <ul class="plan-features">
+        <li>8 a 10 produtos para toda a família</li>
+        <li>Higiene, limpeza e alimentação bio</li>
+        <li>1 produto surpresa exclusivo</li>
+        <li>Relatório de impacto mensal</li>
+        <li>Acesso à comunidade GreenBox</li>
+      </ul>
+      <button class="plan-btn">Escolher Familiar</button>
+    </div>
+
+    <div class="plan reveal reveal-delay-2">
+      <div class="plan-name">Premium</div>
+      <div class="plan-price"><sup>€</sup>39<span style="font-size:1.8rem">.90</span><sub>/mês</sub></div>
+      <p class="plan-desc">Para quem quer a experiência completa. Produtos premium, marcas exclusivas, experiência máxima.</p>
+      <ul class="plan-features">
+        <li>10 a 12 produtos premium selecionados</li>
+        <li>Marcas exclusivas não disponíveis em loja</li>
+        <li>Caixa de edição especial</li>
+        <li>Acesso antecipado a novas marcas</li>
+        <li>Consulta mensal de lifestyle sustentável</li>
+      </ul>
+      <button class="plan-btn">Escolher Premium</button>
+    </div>
+
+  </div>
+  <p class="plan-guarantee">🔒 <strong>Sem compromisso.</strong> Pausa ou cancela a qualquer momento, em 2 cliques, sem falar com ninguém.</p>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <h2 class="section-title">O que dizem os que já escolheram melhor.</h2>
+  <div class="testimonials-grid">
+
+    <div class="testimonial reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Finalmente encontrei um serviço que percebe o que quero. Cada caixa é uma surpresa que me faz bem a mim e ao planeta."</p>
+      <div class="testimonial-author">
+        <div class="avatar">M</div>
+        <div class="author-info">
+          <strong>Mariana C.</strong>
+          <span>Lisboa · Subscritora há 8 meses</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial reveal reveal-delay-1">
+      <div class="stars">★★★★★</div>
+      <p>"Os meus filhos adoram abrir a caixa. É uma forma de os ensinar a fazer boas escolhas desde cedo, de forma divertida."</p>
+      <div class="testimonial-author">
+        <div class="avatar">J</div>
+        <div class="author-info">
+          <strong>João M.</strong>
+          <span>Porto · Plano Familiar</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial reveal reveal-delay-2">
+      <div class="stars">★★★★★</div>
+      <p>"Já experimentei outras subscrições ecológicas. A GreenBox é a única que ficou. A curadoria é de outro nível."</p>
+      <div class="testimonial-author">
+        <div class="avatar">A</div>
+        <div class="author-info">
+          <strong>Ana R.</strong>
+          <span>Braga · Plano Premium</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands">
+  <p>Marcas que já fazem parte da família GreenBox</p>
+  <div class="brands-row">
+    <div class="brand-pill">Biocoop PT</div>
+    <div class="brand-pill">Ach. Brito</div>
+    <div class="brand-pill">Origens Bio</div>
+    <div class="brand-pill">Claus Porto</div>
+    <div class="brand-pill">Aldeia da Floresta</div>
+    <div class="brand-pill">Botanicus</div>
+    <div class="brand-pill">Terramater</div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <div class="section-label">Começa hoje</div>
+  <h2>O planeta agradece.<br><em>A tua consciência</em> também.</h2>
+  <p>Junta-te a mais de 2.000 pessoas que já escolheram viver de forma mais consciente — sem esforço, sem pesquisa, sem dúvidas.</p>
+  <form class="cta-form" onsubmit="handleSubmit(event)">
+    <input type="email" placeholder="O teu endereço de email" required>
+    <button type="submit">Começar agora</button>
+  </form>
+  <div class="cta-guarantees">
+    <span>30% desconto no primeiro mês</span>
+    <span>Sem compromisso</span>
+    <span>Cancela em 2 cliques</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="nav-logo">Green<span>Box</span></div>
+    <p>Tornamos a sustentabilidade acessível, acessível e sem esforço para todos os portugueses.</p>
+    <div class="footer-socials">
+      <a href="#" class="social-link">in</a>
+      <a href="#" class="social-link">ig</a>
+      <a href="#" class="social-link">yt</a>
+      <a href="#" class="social-link">sp</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <h4>Produto</h4>
+    <ul>
+      <li><a href="#">Como funciona</a></li>
+      <li><a href="#">Os nossos planos</a></li>
+      <li><a href="#">Como selecionamos</a></li>
+      <li><a href="#">Marcas parceiras</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Empresa</h4>
+    <ul>
+      <li><a href="#">Sobre nós</a></li>
+      <li><a href="#">Manifesto</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Podcast</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Apoio</h4>
+    <ul>
+      <li><a href="#">FAQ</a></li>
+      <li><a href="#">Contacto</a></li>
+      <li><a href="#">Política de privacidade</a></li>
+      <li><a href="#">Termos de uso</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2025 GreenBox Portugal. Todos os direitos reservados.</p>
+  <div class="eco-badge">🌿 Empresa comprometida com emissões zero até 2030</div>
+</div>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ Bem-vinda à família!';
+    btn.style.background = '#2E7D32';
+    btn.style.color = '#fff';
+    e.target.querySelector('input').value = '';
+    setTimeout(() => {
+      btn.textContent = 'Começar agora';
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 3000);
+  }
+
+  // Nav background on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 80
+      ? 'rgba(10,28,16,0.97)'
+      : 'rgba(15,45,26,0.85)';
+  });
+</script>
+</body>
+</html>
